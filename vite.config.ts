@@ -5,5 +5,5 @@ import { defineConfig } from "vite";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), babel({ presets: [reactCompilerPreset()] })],
-  base: "/tf2-mvm-loot-simulator-tc/",
+  base: "/two-cities-loot-simulator/",
 });
