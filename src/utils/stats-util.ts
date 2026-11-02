@@ -2,7 +2,7 @@ import type { SimulationStats } from "../types/simulation-stats";
 import { formatCurrency } from "./currency-util";
 
 export function getNetProfit(stats: SimulationStats): number {
-  return stats.totalMoneySpent - stats.totalLootValue;
+  return stats.totalLootValue - stats.totalMoneySpent;
 }
 
 /**

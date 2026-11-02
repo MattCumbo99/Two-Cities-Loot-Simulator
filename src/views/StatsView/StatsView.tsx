@@ -60,10 +60,7 @@ export function StatsView({ stats }: StatsViewProps) {
         value={stats.australiums.length.toLocaleString()}
       />
 
-      <StatRowTour
-        name="Most Profitable Tour (excluding pans)"
-        tourData={stats.bestTour}
-      />
+      <StatRowTour name="Most Profitable Tour" tourData={stats.bestTour} />
     </div>
   );
 }
