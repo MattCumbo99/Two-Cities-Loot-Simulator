@@ -6,6 +6,7 @@ import type { MvmTour } from "./mvm-tour";
  */
 export interface SimulationStats {
   tours: MvmTour[];
+  bestTour?: MvmTour;
 
   australiums: LootItem[];
   highValueFabs: LootItem[];

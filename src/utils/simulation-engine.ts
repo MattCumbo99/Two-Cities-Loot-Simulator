@@ -16,14 +16,25 @@ import type { WeaponDefinition } from "../types/weapon-definition";
 import { createSpecFabItem } from "../data/loot-tables";
 import { random } from "./randomizer";
 import type { SimulationStats } from "../types/simulation-stats";
+import type { MvmTour } from "../types/mvm-tour";
 
+/**
+ * Performs a set number of events simulating the completion of a single two cities tour.
+ *
+ * @param currentStats The current statistic data.
+ * @param count Amount of simulations to run.
+ * @returns Updated statistics
+ */
 export function simulateTours(
   currentStats: SimulationStats,
   count: number,
 ): SimulationStats {
   const newTours = [...currentStats.tours];
+
   const newAustraliums = [...currentStats.australiums];
   const newHighValueFabs = [...currentStats.highValueFabs];
+
+  let bestTour = currentStats.bestTour;
 
   let totalHoursPlayed = currentStats.totalHoursPlayed;
   let totalLootValue = currentStats.totalLootValue;
@@ -63,16 +74,23 @@ export function simulateTours(
 
     const tourNumber = newTours.length + 1 + i;
 
-    // Add this tour to the history
-    newTours.push({
+    const currentTour: MvmTour = {
       tourNumber,
       tourEarnings,
       tourLoot,
-    });
+    };
+
+    if (!bestTour || currentTour.tourEarnings > bestTour.tourEarnings) {
+      bestTour = currentTour;
+    }
+
+    // Add this tour to the history
+    newTours.push(currentTour);
   }
 
   return {
     tours: newTours,
+    bestTour,
     australiums: newAustraliums,
     highValueFabs: newHighValueFabs,
     totalGoldPans,
