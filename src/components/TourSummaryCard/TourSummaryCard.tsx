@@ -14,8 +14,8 @@ interface TourSummaryCardProps {
 
 function TourSummaryCardComponent({ tour }: TourSummaryCardProps) {
   const tourRewards = tour.tourLoot;
-  const roboPartItem = createCommonPartsItem(tourRewards.robotParts.common);
-  const hasPristineParts = tourRewards.robotParts.rare > 0;
+  const roboPartItem = createCommonPartsItem(tourRewards.commonPartCount);
+  const hasPristineParts = tourRewards.pristinePartCount > 0;
 
   return (
     <div className="tour-summary-card">
@@ -33,7 +33,7 @@ function TourSummaryCardComponent({ tour }: TourSummaryCardProps) {
 
         {hasPristineParts && (
           <LootItemCard
-            item={createPristinePartsItem(tourRewards.robotParts.rare)}
+            item={createPristinePartsItem(tourRewards.pristinePartCount)}
           />
         )}
 
