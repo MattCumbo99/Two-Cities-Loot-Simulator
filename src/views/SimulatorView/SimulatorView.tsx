@@ -24,14 +24,17 @@ export function SimulatorView({ simulator }: SimulatorViewProps) {
 
         <ItemGroupShowcase
           title="Valuable Fabricators"
-          items={simulator.highValueFabs}
+          items={simulator.stats.highValueFabs}
         />
 
-        <ItemGroupShowcase title="Australiums" items={simulator.australiums} />
+        <ItemGroupShowcase
+          title="Australiums"
+          items={simulator.stats.australiums}
+        />
       </div>
 
       <div className="tour-history-list">
-        {simulator.tours.slice(0, MAX_DISPLAYED_TOURS).map((tour) => (
+        {simulator.stats.tours.slice(0, MAX_DISPLAYED_TOURS).map((tour) => (
           <TourSummaryCard tour={tour} />
         ))}
       </div>

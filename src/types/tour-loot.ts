@@ -15,15 +15,13 @@ export interface TourLoot {
   /**
    * Professional killstreak fabricator data, if earned.
    */
-  proFabricator: LootItem | null;
+  proFabricator?: LootItem;
   /**
    * Australium weapon data, if earned.
    */
-  australium: LootItem | null;
-  robotParts: {
-    common: number;
-    rare: number;
-  };
+  australium?: LootItem;
+  commonPartCount: number;
+  pristinePartCount: number;
   /**
    * Any additional specialized killstreak fabricators earned in prior missions.
    */

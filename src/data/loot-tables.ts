@@ -8,6 +8,19 @@ import type { LootItem } from "../types/loot-item";
 import type { WeaponDefinition } from "../types/weapon-definition";
 import { random } from "../utils/randomizer";
 
+const TICKET_PRICE = 0.99;
+const MISSION_COUNT = 4;
+
+export const TOUR_COST = TICKET_PRICE * MISSION_COUNT;
+
+export const TOUR_PLAYTIME_HOURS = 2.1;
+
+export const ROBOT_PARTS_COMMON_PRICE = 0.04;
+
+export const ROBOT_PARTS_PRISTINE_PRICE = 0.11;
+
+export const GOLD_PAN_ID = "golden_pan";
+
 export const AUSTRALIUMS: LootItem[] = [
   {
     id: "aus_scatter_gun",
@@ -144,15 +157,15 @@ export const AUSTRALIUMS: LootItem[] = [
   },
 ];
 
-export const GOLDEN_PAN: LootItem = {
-  id: "golden_pan",
+export const createGoldenPanItem = (): LootItem => ({
+  id: GOLD_PAN_ID,
   name: "The Golden Frying Pan",
   rarity: "mythic",
   price: 7895,
   image: "/items/gold_frying_pan.png",
   sheen: randomSheen(),
   killstreaker: randomKillstreaker(),
-};
+});
 
 export const WEAPON_REGISTRY: WeaponDefinition[] = [
   {
@@ -915,37 +928,31 @@ export const KILLSTREAKER_MULTIPLIERS: Record<Killstreaker, number> = {
   "Hypno-Beam": 0.0, // Base price
 };
 
-export function robotPartsCommon(quantity: number): LootItem {
-  return {
-    id: "robot_parts_common",
-    name: `Robot Parts: x${quantity}`,
-    rarity: "common",
-    price: 0.04 * quantity,
-    image: "/items/robot_part.png",
-  };
-}
+export const createCommonPartsItem = (quantity: number): LootItem => ({
+  id: "robot_parts_common",
+  name: `Robot Parts: x${quantity}`,
+  rarity: "common",
+  price: ROBOT_PARTS_COMMON_PRICE * quantity,
+  image: "/items/robot_part.png",
+});
 
-export function robotPartsPristine(quantity: number): LootItem {
-  return {
-    id: "robot_parts_pristine",
-    name: `Pristine Parts: x${quantity}`,
-    rarity: "common",
-    price: 0.11 * quantity,
-    image: "/items/pristine_part.png",
-  };
-}
+export const createPristinePartsItem = (quantity: number): LootItem => ({
+  id: "robot_parts_pristine",
+  name: `Pristine Parts: x${quantity}`,
+  rarity: "common",
+  price: ROBOT_PARTS_PRISTINE_PRICE * quantity,
+  image: "/items/pristine_part.png",
+});
 
-export function basicKit(price: number): LootItem {
-  return {
-    id: "killstreak_kit",
-    name: "Killstreak Kit",
-    rarity: "uncommon",
-    price: price,
-    image: "/items/killstreak_kit.png",
-  };
-}
+export const createBasicKitItem = (price: number): LootItem => ({
+  id: "killstreak_kit",
+  name: "Killstreak Kit",
+  rarity: "uncommon",
+  price: price,
+  image: "/items/killstreak_kit.png",
+});
 
-export function specFab(wepName: string, price: number): LootItem {
+export function createSpecFabItem(wepName: string, price: number): LootItem {
   const sheen = randomSheen();
 
   return {
@@ -958,7 +965,7 @@ export function specFab(wepName: string, price: number): LootItem {
   };
 }
 
-export function proFab(wepName: string, price: number): LootItem {
+export function createProFabItem(wepName: string, price: number): LootItem {
   const sheen = randomSheen();
   const killstreaker = randomKillstreaker();
 

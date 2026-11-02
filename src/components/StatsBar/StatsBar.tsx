@@ -3,6 +3,7 @@ import type { SimulationStats } from "../../types/simulation-stats";
 import "./StatsBar.css";
 import { getDetailedTimeBreakdown } from "../../utils/time-util";
 import { formatCurrency } from "../../utils/currency-util";
+import * as StatsUtil from "../../utils/stats-util";
 
 interface Props {
   stats: SimulationStats;
@@ -11,18 +12,18 @@ interface Props {
 }
 
 export const StatsBar: React.FC<Props> = ({ stats, onSimulate, onReset }) => {
-  const isProfitable = stats.netProfit >= 0;
+  const isProfitable = StatsUtil.getNetProfit(stats) >= 0;
 
   return (
     <div className="stats-bar">
       <div className="stat-card">
         <label>Tours Completed</label>
-        <span>{stats.toursCompleted.toLocaleString()}</span>
+        <span>{stats.tours.length.toLocaleString()}</span>
       </div>
 
       <div className="stat-card">
         <label>Money Spent</label>
-        <span>{formatCurrency(stats.totalSpent)}</span>
+        <span>{formatCurrency(stats.totalMoneySpent)}</span>
       </div>
 
       <div className="stat-card">
@@ -30,10 +31,10 @@ export const StatsBar: React.FC<Props> = ({ stats, onSimulate, onReset }) => {
 
         <div className="stat-card-details">
           <span className="stat-value">
-            {(stats.toursCompleted * 2.1).toLocaleString()}
+            {stats.totalHoursPlayed.toLocaleString()}
           </span>
           <span className="stat-subtitle">
-            {getDetailedTimeBreakdown(stats.toursCompleted * 2.1)}
+            {getDetailedTimeBreakdown(stats.totalHoursPlayed)}
           </span>
         </div>
       </div>
@@ -45,12 +46,12 @@ export const StatsBar: React.FC<Props> = ({ stats, onSimulate, onReset }) => {
 
       <div className="stat-card">
         <label>Golden Pans</label>
-        <span>{stats.panCount.toLocaleString()}</span>
+        <span>{stats.totalGoldPans.toLocaleString()}</span>
       </div>
 
       <div className={`stat-card ${isProfitable ? "profit" : "loss"}`}>
         <label>Net Profit / Loss</label>
-        <span>{formatCurrency(stats.netProfit)}</span>
+        <span>{StatsUtil.formatNetProfit(stats)}</span>
       </div>
 
       <div className="actions">
