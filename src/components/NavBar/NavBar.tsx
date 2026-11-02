@@ -10,7 +10,7 @@ interface NavbarProps {
 export function NavBar({ activeTab, onTabChange }: NavbarProps) {
   return (
     <header className="navbar-header">
-      <h1>MvM Loot Simulator</h1>
+      <h1>Two Cities Loot Simulator</h1>
       <nav className="tab-navigation">
         <button
           className={activeTab === "simulator" ? "active" : ""}

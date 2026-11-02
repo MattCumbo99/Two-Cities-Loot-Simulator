@@ -44,6 +44,8 @@ export function simulateTours(
   let totalProFabs = currentStats.totalProFabs;
   let totalRobotParts = currentStats.totalRobotParts;
 
+  let currentTourNumber = newTours.length + 1;
+
   // Begin tour simulation
   for (let i = 0; i < count; i++) {
     const tourLoot = generateTourLoot();
@@ -72,10 +74,8 @@ export function simulateTours(
     const australium = tourLoot.australium;
     if (australium) newAustraliums.push(australium);
 
-    const tourNumber = newTours.length + 1 + i;
-
     const currentTour: MvmTour = {
-      tourNumber,
+      tourNumber: currentTourNumber++,
       tourEarnings,
       tourLoot,
     };
@@ -89,10 +89,10 @@ export function simulateTours(
   }
 
   return {
-    tours: newTours,
+    tours: newTours.reverse(),
     bestTour,
-    australiums: newAustraliums,
-    highValueFabs: newHighValueFabs,
+    australiums: newAustraliums.reverse(),
+    highValueFabs: newHighValueFabs.reverse(),
     totalGoldPans,
     totalHoursPlayed,
     totalLootValue,
