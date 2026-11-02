@@ -2,9 +2,9 @@ import "./TourSummaryCard.css";
 import { LootItemCard } from "../LootItemCard/LootItemCard";
 import { memo } from "react";
 import {
-  basicKit,
-  robotPartsCommon,
-  robotPartsPristine,
+  createBasicKitItem,
+  createCommonPartsItem,
+  createPristinePartsItem,
 } from "../../data/loot-tables";
 import type { MvmTour } from "../../types/mvm-tour";
 
@@ -14,7 +14,7 @@ interface TourSummaryCardProps {
 
 function TourSummaryCardComponent({ tour }: TourSummaryCardProps) {
   const tourRewards = tour.tourLoot;
-  const roboPartItem = robotPartsCommon(tourRewards.robotParts.common);
+  const roboPartItem = createCommonPartsItem(tourRewards.robotParts.common);
   const hasPristineParts = tourRewards.robotParts.rare > 0;
 
   return (
@@ -33,11 +33,11 @@ function TourSummaryCardComponent({ tour }: TourSummaryCardProps) {
 
         {hasPristineParts && (
           <LootItemCard
-            item={robotPartsPristine(tourRewards.robotParts.rare)}
+            item={createPristinePartsItem(tourRewards.robotParts.rare)}
           />
         )}
 
-        <LootItemCard item={basicKit(tourRewards.basicKitPrice)} />
+        <LootItemCard item={createBasicKitItem(tourRewards.basicKitPrice)} />
 
         <LootItemCard item={tourRewards.specFabricator} />
 
