@@ -42,8 +42,8 @@ function TourSummaryCardComponent({ tour }: TourSummaryCardProps) {
         <LootItemCard item={tourRewards.specFabricator} />
 
         {/* Any additional fabricators earned */}
-        {tourRewards.additionalSpecFabs.map((fab) => (
-          <LootItemCard key={fab.id} item={fab} />
+        {tourRewards.additionalSpecFabs.map((fab, index) => (
+          <LootItemCard key={`${fab.id}-${index}`} item={fab} />
         ))}
 
         {tourRewards.proFabricator && (

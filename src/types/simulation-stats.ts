@@ -11,6 +11,8 @@ export interface SimulationStats {
   australiums: LootItem[];
   highValueFabs: LootItem[];
 
+  bestProFab?: LootItem;
+
   totalGoldPans: number;
   totalHoursPlayed: number;
   totalLootValue: number;
