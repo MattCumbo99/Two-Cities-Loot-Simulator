@@ -5,6 +5,5 @@
  * @param max Highest possible number.
  * @returns Random number between `min` and `max`.
  */
-export function random(min: number, max: number): number {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+export const random = (min: number, max: number): number =>
+  Math.floor(Math.random() * (max - min + 1)) + min;

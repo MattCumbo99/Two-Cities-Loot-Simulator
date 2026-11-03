@@ -1,12 +1,12 @@
 import "./TourSummaryCard.css";
 import { LootItemCard } from "../LootItemCard/LootItemCard";
 import { memo } from "react";
+import type { MvmTour } from "../../types/mvm-tour";
 import {
   createBasicKitItem,
   createCommonPartsItem,
   createPristinePartsItem,
-} from "../../data/loot-tables";
-import type { MvmTour } from "../../types/mvm-tour";
+} from "../../utils/loot-util";
 
 interface TourSummaryCardProps {
   tour: MvmTour;

@@ -1,22 +1,22 @@
-import {
-  AUSTRALIUMS,
-  createProFabItem,
-  WEAPON_REGISTRY,
-  createBasicKitItem,
-  createCommonPartsItem,
-  createPristinePartsItem,
-  TOUR_COST,
-  TOUR_PLAYTIME_HOURS,
-  createGoldenPanItem,
-  GOLD_PAN_ID,
-} from "../data/loot-tables";
 import type { LootItem } from "../types/loot-item";
 import type { TourLoot } from "../types/tour-loot";
-import type { WeaponDefinition } from "../types/weapon-definition";
-import { createSpecFabItem } from "../data/loot-tables";
 import { random } from "./randomizer";
 import type { SimulationStats } from "../types/simulation-stats";
 import type { MvmTour } from "../types/mvm-tour";
+import {
+  createBasicKitItem,
+  createCommonPartsItem,
+  createGoldenPanItem,
+  createPristinePartsItem,
+  getRandomAustralium,
+  getRandomProFab,
+  getRandomSpecFab,
+} from "./loot-util";
+import {
+  GOLD_PAN_ID,
+  TOUR_COST,
+  TOUR_PLAYTIME_HOURS,
+} from "../data/simulator-props";
 
 /**
  * Performs a set number of events simulating the completion of a single two cities tour.
@@ -110,7 +110,7 @@ export function simulateTours(
  */
 const generateTourLoot = (): TourLoot => ({
   basicKitPrice: randomKitPrice(),
-  specFabricator: randomSpecFab(),
+  specFabricator: getRandomSpecFab(),
   proFabricator: gambleProFab(),
   australium: gambleAustralium(),
   commonPartCount: random(20, 27),
@@ -205,26 +205,10 @@ function gambleAdditionalSpecFabs(): LootItem[] {
   const specFabs: LootItem[] = [];
 
   for (let i = 0; i < rewardedKits; i++) {
-    specFabs.push(randomSpecFab());
+    specFabs.push(getRandomSpecFab());
   }
 
   return specFabs;
-}
-
-const randomWeapon = (): WeaponDefinition =>
-  WEAPON_REGISTRY.at(random(0, WEAPON_REGISTRY.length - 1))!!;
-
-function randomSpecFab(): LootItem {
-  const chosenWeapon = randomWeapon();
-
-  const specFabItem = createSpecFabItem(
-    chosenWeapon.name,
-    chosenWeapon.specFabPrice,
-  );
-
-  adjustSpecFabRarity(specFabItem);
-
-  return specFabItem;
 }
 
 /**
@@ -235,7 +219,7 @@ function randomSpecFab(): LootItem {
  */
 function gambleProFab(): LootItem | undefined {
   if (hasEarnedProFab()) {
-    return randomProFab();
+    return getRandomProFab();
   }
 
   return undefined;
@@ -257,54 +241,12 @@ function gambleAustralium(): LootItem | undefined {
 
   // Roll for an australium
   if (hasEarnedAustralium()) {
-    return randomAustralium();
+    return getRandomAustralium();
   }
 
   return undefined;
 }
 
-function randomProFab(): LootItem {
-  const chosenWeapon = randomWeapon();
-
-  const proFabItem = createProFabItem(
-    chosenWeapon.name,
-    chosenWeapon.proFabPrice,
-  );
-
-  adjustProFabRarity(proFabItem);
-
-  return proFabItem;
-}
-
 const hasEarnedGoldPan = (): boolean => random(1, 19500) === 19500;
 
 const hasEarnedAustralium = (): boolean => random(1, 100) >= 99;
-
-const randomAustralium = (): LootItem =>
-  AUSTRALIUMS.at(random(0, AUSTRALIUMS.length - 1))!!;
-
-function adjustSpecFabRarity(specFab: LootItem) {
-  const uncommonPriceThreshold = 0.05;
-  const rarePriceThreshold = 0.5;
-
-  if (specFab.price >= uncommonPriceThreshold) {
-    specFab.rarity = "uncommon";
-  }
-
-  if (specFab.price >= rarePriceThreshold) {
-    specFab.rarity = "rare";
-  }
-}
-
-function adjustProFabRarity(proFab: LootItem) {
-  const epicPriceThreshold = 5;
-  const legendPriceThreshold = 20;
-
-  if (proFab.price >= epicPriceThreshold) {
-    proFab.rarity = "epic";
-  }
-
-  if (proFab.price >= legendPriceThreshold) {
-    proFab.rarity = "legendary";
-  }
-}
