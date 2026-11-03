@@ -35,6 +35,7 @@ export function simulateTours(
   const newHighValueFabs = [...currentStats.highValueFabs];
 
   let bestTour = currentStats.bestTour;
+  let bestProFab = currentStats.bestProFab;
 
   let totalHoursPlayed = currentStats.totalHoursPlayed;
   let totalLootValue = currentStats.totalLootValue;
@@ -67,6 +68,7 @@ export function simulateTours(
     if (proFab) {
       totalProFabs++;
 
+      if (!bestProFab || bestProFab.price < proFab.price) bestProFab = proFab;
       if (isFabHighValue(proFab)) newHighValueFabs.push(proFab);
     }
 
@@ -91,6 +93,7 @@ export function simulateTours(
   return {
     tours: newTours.reverse(),
     bestTour,
+    bestProFab,
     australiums: newAustraliums.reverse(),
     highValueFabs: newHighValueFabs.reverse(),
     totalGoldPans,

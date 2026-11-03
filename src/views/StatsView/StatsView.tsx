@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import type { SimulationStats } from "../../types/simulation-stats";
 import { formatCurrency } from "../../utils/currency-util";
 import * as StatsUtil from "../../utils/stats-util";
@@ -12,6 +13,12 @@ interface StatsViewProps {
 }
 
 export function StatsView({ stats }: StatsViewProps) {
+  const teamShineFireHorns = useMemo(() => {
+    return stats.highValueFabs.filter(
+      (fab) => fab.sheen === "Team Shine" && fab.killstreaker === "Fire Horns",
+    );
+  }, [stats.highValueFabs]);
+
   return (
     <div className="stats-container">
       <StatRow
@@ -22,6 +29,16 @@ export function StatsView({ stats }: StatsViewProps) {
       <StatRowItems name="Australiums" items={stats.australiums} />
 
       <StatRowItems name="High Value Fabricators" items={stats.highValueFabs} />
+
+      <StatRowItems
+        name="Valuable Team Shine + Fire Horns Fabricators"
+        items={teamShineFireHorns}
+      />
+
+      <StatRowItems
+        name="Most Expensive Professional Fabricator"
+        items={stats.bestProFab ? [stats.bestProFab] : []}
+      />
 
       <StatRow
         name="Money Spent"
