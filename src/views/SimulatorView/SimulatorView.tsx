@@ -35,7 +35,7 @@ export function SimulatorView({ simulator }: SimulatorViewProps) {
 
       <div className="tour-history-list">
         {simulator.stats.tours.slice(0, MAX_DISPLAYED_TOURS).map((tour) => (
-          <TourSummaryCard tour={tour} />
+          <TourSummaryCard key={tour.tourNumber} tour={tour} />
         ))}
       </div>
     </div>
