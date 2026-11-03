@@ -77,6 +77,13 @@ export const createBasicKitItem = (price: number): LootItem => ({
   image: "/items/killstreak_kit.png",
 });
 
+/**
+ * Creates a new specialized fabricator `LootItem`.
+ *
+ * @param wepName Name of the weapon.
+ * @param price Price of the weapon.
+ * @returns Specialized Fabricator.
+ */
 export const createSpecFabItem = (wepName: string, price: number): LootItem => {
   const sheen = getRandomSheen();
 
