@@ -21,6 +21,20 @@ export function formatNetProfit(stats: SimulationStats): string {
 }
 
 /**
+ * Shows a condensed version of the provided value.
+ *
+ * @param value Number to condense.
+ * @returns Condensed number.
+ */
+export function formatCondensed(value: number): string {
+  return new Intl.NumberFormat("en-US", {
+    notation: "compact",
+    compactDisplay: "short",
+    maximumFractionDigits: 1,
+  }).format(value);
+}
+
+/**
  * Creates a new `SimulationStats` object with starting values.
  *
  * @returns New SimulationStats.
