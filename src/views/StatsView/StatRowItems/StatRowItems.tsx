@@ -48,8 +48,8 @@ export function StatRowItems({ name, items }: StatRowItemsProps) {
       {/* Expandable Content Area */}
       {isOpen && hasData && (
         <div className="stat-row-item-expansion">
-          {items.slice(0, 50).map((item) => (
-            <LootItemCard key={item.id} item={item} />
+          {items.slice(0, 50).map((item, index) => (
+            <LootItemCard key={`${item.id}-${index}`} item={item} />
           ))}
         </div>
       )}

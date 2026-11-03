@@ -21,8 +21,8 @@ export function ItemGroupShowcase({
       </div>
 
       <div className="item-area">
-        {items.slice(0, maxItems).map((item) => (
-          <LootItemCard key={item.id} item={item} />
+        {items.slice(0, maxItems).map((item, index) => (
+          <LootItemCard key={`${item.id}-${index}`} item={item} />
         ))}
       </div>
     </div>
