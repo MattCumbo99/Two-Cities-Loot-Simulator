@@ -8,7 +8,7 @@ interface SimulatorViewProps {
   simulator: MvmSimulator;
 }
 
-const MAX_DISPLAYED_TOURS = 50;
+const MAX_DISPLAYED_TOURS = 100;
 
 export function SimulatorView({ simulator }: SimulatorViewProps) {
   return (

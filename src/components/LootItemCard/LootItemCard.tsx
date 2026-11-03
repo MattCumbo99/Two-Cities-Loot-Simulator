@@ -2,6 +2,7 @@ import type React from "react";
 import type { LootItem } from "../../types/loot-item";
 import "./LootItemCard.css";
 import type { Killstreaker } from "../../types/killstreak-effects";
+import { AUSTRALIUMS } from "../../data/loot-tables";
 
 interface Props {
   item: LootItem;
@@ -21,13 +22,17 @@ export const LootItemCard: React.FC<Props> = ({ item }) => {
   // Convert to rarity string for CSS class matching
   const rarityClass = `rarity-${item.rarity.toLowerCase()}`;
 
+  const isAustralium = AUSTRALIUMS.includes(item);
+
   return (
-    <div className={`loot-card ${rarityClass}`}>
+    <div
+      className={`loot-card ${rarityClass} ${isAustralium ? "is-australium" : ""}`}
+    >
       <div className="loot-card-header">
         <span className="rarity-tag">{item.rarity}</span>
       </div>
 
-      <div className="loot-card-media">
+      <div className={`loot-card-media ${isAustralium ? "is-australium" : ""}`}>
         {item.image ? (
           <img
             src={`${import.meta.env.BASE_URL}${item.image}`}
