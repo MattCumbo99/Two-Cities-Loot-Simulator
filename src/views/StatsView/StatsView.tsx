@@ -3,6 +3,7 @@ import { formatCurrency } from "../../utils/currency-util";
 import * as StatsUtil from "../../utils/stats-util";
 import { getDetailedTimeBreakdown } from "../../utils/time-util";
 import { StatRow } from "./StatRow/StatRow";
+import { StatRowItems } from "./StatRowItems/StatRowItems";
 import { StatRowTour } from "./StatRowTour/StatRowTour";
 import "./StatsView.css";
 
@@ -17,6 +18,10 @@ export function StatsView({ stats }: StatsViewProps) {
         name="Tours Completed"
         value={stats.tours.length.toLocaleString()}
       />
+
+      <StatRowItems name="Australiums" items={stats.australiums} />
+
+      <StatRowItems name="High Value Fabricators" items={stats.highValueFabs} />
 
       <StatRow
         name="Money Spent"
@@ -53,11 +58,6 @@ export function StatsView({ stats }: StatsViewProps) {
       <StatRow
         name="Professional Fabricators Earned"
         value={stats.totalProFabs.toLocaleString()}
-      />
-
-      <StatRow
-        name="Australiums Earned"
-        value={stats.australiums.length.toLocaleString()}
       />
 
       <StatRowTour name="Most Profitable Tour" tourData={stats.bestTour} />
